@@ -1,0 +1,18 @@
+.action-btn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.action-btn.orange {
+  background-color: #ffcc80;
+  border: 1px solid #ffa726;
+  color: #221e19;
+}
+
+.action-btn.orange:hover {
+  background-color: rgb(230, 122, 50);
+}
