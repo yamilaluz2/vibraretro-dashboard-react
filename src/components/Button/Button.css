@@ -1,28 +1,27 @@
 button {
-  background-color: #f8a700; 
-  color: black;
-  border: 1px solid #d18b00; 
+  background: linear-gradient(180deg, #f8a700 0%, #e08500 100%);
+  color: #251b07;
+  border: 1px solid #b86d00;
   border-radius: 8px;
-  padding: 0.5em 1em;
+  padding: 0.6em 1.2em;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.35);
 }
 
 button:hover {
-  background-color: #e07b00; 
-  transform: translateY(-2px); 
+  background: #e07b00;
+  transform: translateY(-2px);
 }
 
 button:active {
-  transform: translateY(0px);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  transform: translateY(0);
+  box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
 }
 
 button:disabled {
-  background-color: #f8c46a; 
-  cursor: not-allowed;
+  background-color: #f5c476;
   box-shadow: none;
+  cursor: not-allowed;
 }
-
