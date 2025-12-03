@@ -10,7 +10,7 @@
 }
 
 html {
-  font-size: 100%;
+  font-size: 70%;
 }
 
 input,
@@ -82,7 +82,7 @@ html, body {
   height: 100%;
   min-height: 100dvh;
   background: #d6e3e6;
-  font-family: "Winky Rough";
+  font-family: "Winky Rough", sans-serif;
   overflow-x: hidden;
 }
 

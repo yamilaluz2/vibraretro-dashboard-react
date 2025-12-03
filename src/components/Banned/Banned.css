@@ -5,14 +5,13 @@
   padding: 20px;
   width: 100vw;
   min-height: 80vh;
-  background: #d6e3e6;
-  font-family: 'Arial', sans-serif;
+  font-family: "Winky Rough", sans-serif;
   color: #251b07;
   gap: 20px;
 }
 
 .banned-container h2 {
-  font-family: 'Lobster', cursive;
+  font-family: "Winky Rough", sans-serif;
   font-size: 2.8rem;
   text-shadow: 2px 2px 4px rgb(236, 104, 27);
   text-align: center;

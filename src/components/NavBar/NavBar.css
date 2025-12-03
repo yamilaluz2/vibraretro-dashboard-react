@@ -1,13 +1,6 @@
 .bg-body-tertiary {
   min-height: 90px;
-  background: repeating-linear-gradient(
-    to right,
-    #efd9b4,
-    #ffcc66,
-    #d6c1a3,
-    #ffcc66,
-    #efd9b4
-  );
+  background: repeating-linear-gradient(to right,#efd9b4, #ffcc66, #d6c1a3, #ffcc66,#efd9b4);
   display: flex;
   align-items: center;
 }
@@ -16,7 +9,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Lobster', cursive;
+  font-family: "Winky Rough", sans-serif;
   font-size: 2rem;
   color: #251b07;
   text-shadow: 2px 2px 4px rgb(236, 104, 27);
@@ -29,7 +22,7 @@
 }
 
 nav.bg-body-tertiary .nav-link {
-  font-family: 'Arial', sans-serif;
+  font-family: "Winky Rough", sans-serif;
   margin-right: 20px;
   text-decoration: none;
   font-size: 1.1rem;

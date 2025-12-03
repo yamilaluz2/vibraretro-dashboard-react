@@ -25,6 +25,7 @@
 
 .custom-table th {
   background-color: #ffcc66;
+  font-family: "Winky Rough", sans-serif;
   font-size: 1.1rem;
   color: #251b07;
 }
@@ -65,4 +66,11 @@
     flex-direction: column;
     gap: 5px;
   }
+}
+
+@font-face {
+  font-family: "Winky Rough";
+  src: url('../../assets/fonts/WinkyRough.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
