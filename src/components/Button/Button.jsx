@@ -1,23 +1,13 @@
 import './Button.css';
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
 
-const Button = ({ text, to, onClick, color = "orange" }) => {
+const Button = ({text, callback}) => {
   
-  if (to) {
-    return (
-      <Link className={`action-btn ${color}`} to={to}>
-        {text}
-      </Link>
-    );
-  };
-
   return (
-    <button className={`action-btn ${color}`} onClick={onClick}>
+    <button onClick={callback}>
       {text}
     </button>
-  );
-};
+  )
+}
 
 export default Button;
-;

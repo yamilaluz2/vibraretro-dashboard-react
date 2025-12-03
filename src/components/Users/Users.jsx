@@ -1,62 +1,73 @@
-import React, { useEffect, useState} from 'react'
-import Grid from '../Grid/Grid';
+import React, { useEffect, useState } from 'react';
+import './Users.css';
+import Table from '../Table/Table';
+import Paginador from '../Paginador/Paginador';
+import Search from '../Search/Search';
+import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
-  //const [page, setPage] = useState(1);
-  //const [query, setQuery] = useState("");
-  const [users, setUsers] = useState([
-    { id: 1, username: "admin", email: "admin@mail.com", admin: true },
-    { id: 2, username: "eze", email: "eze@mail.com", admin: false },
-    { id: 3, username: "sofi", email: "sofi@mail.com", admin: false },
-    { id: 4, username: "yami", email: "yami@mail.com", admin: false },
-  ]);
-
-  /*
-  const nextPage = () => {
-    setPage(page + 1);
-  }
-
-  const previousPage = () => {
-    setPage(page -1);
-  } 
-
-  const find = (evt) => {
-    const {value} = evt.target;
-    setQuery(value);
-    setPage(1);
-  }
-
-  const fetchData = async () => {
-    try {
-      let response = await fetch('');
-      let json = await response.json();
-
-      setTotalPage(json.totalPages);
-      setUsers(json.content);
-    } catch (e) {
-      alert("Error al traer las provincias" + e.message);
-    } finally {
-
-    }
-  }
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchData();
-  }, [page, query]);
-*/
+    const fetchUsers = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      setLoading(true);
+
+      try {
+        const res = await fetch(`https://tu-backend.com/api/users?page=${pageNumber}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setUsers(data.users);
+        } else {
+          console.error("Error fetching users");
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, [pageNumber]);
+
+  const handleEdit = (userId) => {
+    navigate(`/user/${userId}`);
+  };
+
+  const handleBan = (userId) => {
+    navigate(`/ban/${userId}`);
+  };
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div>
+    <div className="users-container">
       <h2>Usuarios Registrados</h2>
-      {/* 
-      <input type='text' value={query} onChange={find} />
-      */}
-      <Grid></Grid>
-      {/*
-      <a className='btn-btn-primary' onClick={previousPage}>Anterior</a>
-      <span>{page}</span>
-      <a className='btn-btn-primary' onClick={nextPage}>Siguiente</a>
-      */}
+      <Search placeholder="Buscar usuarios..." onSearch={setSearchQuery} />
+      {loading ? (
+        <p>Cargando usuarios...</p>
+      ) : (
+        <>
+          <Table users={filteredUsers} onEdit={handleEdit} onBan={handleBan} />
+          <Paginador pageNumber={pageNumber} setPageNumber={setPageNumber} />
+        </>
+      )}
     </div>
-  )
-}
-export default Users
+  );
+};
+
+export default Users;

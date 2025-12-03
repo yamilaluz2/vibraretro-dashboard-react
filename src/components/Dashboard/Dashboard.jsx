@@ -1,33 +1,42 @@
 import React, { useEffect, useState } from "react";
+import './Dashboard.css';
 
 const Dashboard = () => {
-  const [estadisticas, setEstadisticas] = useState(null);
-  const [cargando, setCargando] = useState(true);
+  const [statistics, setStatistics] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Traer estadísticas del backend
-    fetch("https://tu-backend.com/api/usuarios/estadisticas")
-      .then((res) => res.json())
-      .then((data) => {
-        setEstadisticas(data);
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.error("Error al traer estadísticas:", error);
-        setCargando(false);
-      });
+    const fetchStatistics = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const res = await fetch("https://tu-backend.com/api/usuarios/estadisticas", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        setStatistics(data);
+      } catch (error) {
+        console.error("Error fetching statistics:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStatistics();
   }, []);
 
-  if (cargando) return <p>Cargando estadísticas...</p>;
+  if (loading) return <p>Cargando estadísticas...</p>;
 
   return (
-    <div>
-      <h2>Dashboard - Estadísticas de Usuarios</h2>
-      {estadisticas ? (
+    <div className="dashboard-container">
+      <h2>Estadísticas de Usuarios</h2>
+      {statistics ? (
         <ul>
-          <li>Total de usuarios: {estadisticas.totalUsuarios}</li>
-          <li>Total de administradores: {estadisticas.totalAdmins}</li>
-          <li>Total de usuarios comunes: {estadisticas.totalUsuariosComunes}</li>
+          <li>Total de usuarios: {statistics.totalUsuarios}</li>
         </ul>
       ) : (
         <p>No se pudieron cargar las estadísticas</p>

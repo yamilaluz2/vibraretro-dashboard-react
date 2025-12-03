@@ -1,0 +1,24 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; 
+  text-align: center;
+  gap: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #251b07;
+}
+
+.error-container h2 {
+  font-size: 2.5rem;
+  color: #0c0c0c;
+  margin: 0;
+}
+
+.error-image {
+  width: 800px; 
+  height: auto; 
+  object-fit: contain;
+  border-radius: 10px;
+}

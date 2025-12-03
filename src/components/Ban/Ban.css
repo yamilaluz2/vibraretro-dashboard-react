@@ -1,19 +1,18 @@
-.user-container {
+.ban-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  width: 100%;
 }
 
-.user-container h2 {
+.ban-container h2 {
   font-size: 2rem;
   margin-bottom: 20px;
   color: #251b07;
   text-shadow: 2px 2px 4px rgb(236, 104, 27);
 }
 
-.user-form {
+.ban-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -25,7 +24,7 @@
   max-width: 500px;
 }
 
-.user-form label {
+.ban-form label {
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -33,21 +32,25 @@
   font-size: 1rem;
 }
 
-.user-form input,
-.user-form select {
+.ban-form input[type="text"],
+.ban-form input[type="number"],
+.ban-form input[type="date"] {
   padding: 0.8em;
   margin-top: 5px;
   border-radius: 10px;
   border: 1px solid #aaa;
   font-size: 1rem;
-  width: 100%;
 }
 
-.user-form input:disabled {
-  background-color: #e0e0e0;
+.confirm-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  color: #251b07;
 }
 
-.user-form button {
+.ban-form button {
   margin-top: 10px;
   padding: 0.8em 1em;
   border-radius: 5px;
@@ -60,12 +63,12 @@
   transition: background-color 0.3s;
 }
 
-.user-form button:hover {
+.ban-form button:hover {
   background-color: #a34f07;
 }
 
 @media screen and (max-width: 768px) {
-  .user-form {
+  .ban-form {
     width: 95%;
   }
 }

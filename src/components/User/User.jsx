@@ -1,66 +1,104 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import './User.css';
+import Button from '../Button/Button';
 
 const User = () => {
+  const { userId } = useParams(); 
+  const navigate = useNavigate();
 
-    /*
-    const { userId, } = useParams();
-    const {user, setUser} = useState({});
-    const [name, setName] = useState("");
+  const [user, setUser] = useState(null);
+  const [role, setRole] = useState('user'); 
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
-    {const saveUser = async () => {
-        try {
-            let response = await fetch(
-                'PUT URL' , (
-                method: 'PUT'
-            ));
-            let json = await response.json();
-
-            if(json.sucess == true) {
-                alert("Guardado");
-            }
-        } catch (e) {
-        alert("Error al traer las provincias" + e.message);
-        } finally {
-
-        }
-    }
-
-    const modifyName = (evt) => {
-        const {value} = evt.target;
-        setName(value);
-    }
-
-
+  useEffect(() => {
     const fetchUser = async () => {
-        try {
-            let response = await fetch('');
-            let json = await response.json();
-
-            setUser(json.content);
-            setName(json.content.nombre);
-        } catch (e) {
-        alert("Error al traer las provincias" + e.message);
-        } finally {
-
+      const token = localStorage.getItem('token');
+      try {
+        const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setUser(data);
+          setRole(data.role); 
+        } else {
+          alert(data.error || "No se pudo obtener el usuario");
         }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        alert("Error al cargar usuario");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [userId]);
+
+  const saveUser = async () => {
+    if (!user) return;
+
+    setSaving(true);
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ role })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert("Usuario actualizado correctamente");
+        navigate('/users'); 
+      } else {
+        alert(data.error || "No se pudo guardar el usuario");
+      }
+    } catch (error) {
+      console.error("Error saving user:", error);
+      alert("Ocurrió un error al guardar");
+    } finally {
+      setSaving(false);
     }
+  };
 
-    useEffect(() => {
-        fetchUser();
-      }, []);
-      */
+  if (loading) return <p>Cargando usuario...</p>;
+  if (!user) return <p>Usuario no encontrado</p>;
 
-    return (
-        <>
-            {/*
-            <div className='card'>
-                <input type="text" value={name} onChange={modifyName} />
-            </div>
-            <a className='btn btn-primary' onClick={saveUser}>GUARDAR</a>
-            */}
-        </>
-    );
-}
+  return (
+    <div className="user-container">
+      <h2>Editar Usuario</h2>
+      <div className="user-form">
+        <label>
+          Nombre:
+          <input type="text" value={user.name} disabled />
+        </label>
+        <label>
+          Username:
+          <input type="text" value={user.username} disabled />
+        </label>
+        <label>
+          Email:
+          <input type="email" value={user.email} disabled />
+        </label>
+        <label>
+          Rol:
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="user">Usuario</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </label>
+        <Button text={saving ? "Guardando..." : "Guardar"} callback={saveUser} />
+      </div>
+    </div>
+  );
+};
 
-export default User
+export default User;
+
