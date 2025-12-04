@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Ban.css';
 
 const Ban = () => {
-  const [userId, setUserId] = useState('');
+  const { userId } = useParams();
   const [reason, setReason] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -13,7 +13,7 @@ const Ban = () => {
   const navigate = useNavigate();
 
   const handleBan = async () => {
-    if (!userId || !reason || !startDate || !endDate || !confirm) {
+    if (!reason || !startDate || !endDate || !confirm) {
       alert('Completa todos los campos y confirma el baneo.');
       return;
     }
@@ -25,7 +25,7 @@ const Ban = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const res = await fetch('https://tu-backend.com/api/users/ban', {
+      const res = await fetch('http://localhost:5029/Ban/Ban', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,16 +52,8 @@ const Ban = () => {
 
   return (
     <div className="ban-container">
-      <h2>Banear Usuario</h2>
+      <h2>Banear Usuario {userId}</h2> 
       <div className="ban-form">
-        <label>
-          ID del Usuario
-          <input
-            type="number"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-          />
-        </label>
         <label>
           Motivo
           <input
@@ -103,3 +95,4 @@ const Ban = () => {
 };
 
 export default Ban;
+

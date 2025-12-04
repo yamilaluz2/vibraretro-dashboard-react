@@ -25,7 +25,7 @@ function App() {
           <Route path="/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
           <Route exact path='/users' element={<ProtectedRoutes><Users /></ProtectedRoutes>} />
           <Route exact path='/user/:userId' element={<ProtectedRoutes><User /></ProtectedRoutes>} />
-          <Route exact path='/ban' element={<ProtectedRoutes><Ban /></ProtectedRoutes>} />
+          <Route exact path='/ban/:userId' element={<ProtectedRoutes><Ban /></ProtectedRoutes>} />
           <Route exact path='/administrators' element={<ProtectedRoutes><Administrators /></ProtectedRoutes>} />
           <Route exact path='/banned' element={<ProtectedRoutes><Banned /></ProtectedRoutes>} />
           <Route path='*' element={<Error />} />
