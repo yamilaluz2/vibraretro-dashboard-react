@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import Alert from "../Alert/Alert";
+import Button from "../Button/Button";
 import './Login.css';
 
 const Login = () => {
@@ -31,14 +33,14 @@ const Login = () => {
         localStorage.setItem("token", data.token);        
         localStorage.setItem("logged", "true");      
 
+        await Alert.success("Bienvenido", "Has iniciado sesión correctamente");
         navigate("/dashboard");
       } else {
-        console.log(data.message);
-        alert(data.error || "Usuario o contraseña incorrectos");
+        Alert.error("Login fallido", data.error || "Usuario o contraseña incorrectos");
       }
     } catch (error) {
       console.error("Error al loguear:", error);
-      alert("Ocurrió un error de conexión, intenta nuevamente");
+      Alert.error("Error de conexión", "Ocurrió un error de conexión, intenta nuevamente");
     } finally {
       setLoading(false);
     }
@@ -50,7 +52,7 @@ const Login = () => {
         <div className="form-common">
           <img src="/combi.webp" alt="Vibra Retro" className="logo-img" />
           <h1 className="login-title">VIBRA RETRO</h1>
-          <h2>Iniciar Sesión como administrador</h2>
+          <h2>Iniciar sesión como administrador</h2>
 
           <input
             className="form-input"
@@ -67,13 +69,12 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button
-            className="form-button button-login"
-            onClick={validateLogin}
-            disabled={loading}
-          >
-            {loading ? "Ingresando..." : "Ingresar"}
-          </button>
+          <Button 
+            text={loading ? "Ingresando..." : "Ingresar"} 
+            callback={validateLogin} 
+            type="button" 
+            disabled={loading} 
+          />
         </div>
       </div>
     </main>

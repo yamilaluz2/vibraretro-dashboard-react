@@ -1,33 +1,79 @@
-.main {
-  grid-area: main;
-}
-
 .main-login {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
+  min-height: 100vh;
+  padding: 40px;
   flex-direction: column;
-  padding: 50px;
-  padding-top: 70px;
+  background: #d6e3e6;
+}
+
+.logo-img {
+  width: 100px;
+  height: auto;
+  animation: giroMoneda 2s linear infinite;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@keyframes giroMoneda {
+  0% {
+    transform: rotateY(360deg);
+  }
 }
 
 .login-title {
-  font-family: 'Lobster', cursive;
-  font-size: 1.5rem;
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1.7rem;
   color: #251b07;
   text-shadow: 2px 2px 4px rgb(236, 104, 27);
-  display: flex;
-  align-items: center;
-  gap: 10px; 
-  margin-bottom: 20px;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 2;
+  animation: escribir 1s steps(50) infinite;
 }
 
-.login-title img {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px black;
+@keyframes escribir {
+  to {
+    width: 10ch;
+  }
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d1d1;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.button-login {
+  width: 100%;
+  padding: 10px;
+  background-color: #f8a700;
+  border-radius: 8px;
+  border: 1px solid #d18b00;
+  cursor: pointer;
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1rem;
+  color: black;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.button-login:hover {
+  background-color: #e07b00;
+  transform: translateY(-2px);
+}
+
+.button-login:disabled {
+  background-color: #f8c46a;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .form-login {
@@ -50,17 +96,22 @@
   padding: 20px;
   gap: 5px;
   border-radius: 15px;
-  box-shadow: 3px 3px 5px black;
+  box-shadow: 3px 3px 5px rgb(231, 135, 25);
 }
 
 .form-common h2 {
-  font-size: 0.7rem ;
+  font-family: "Winky Rough", sans-serif;
+  font-size: 0.8rem;
+  color: #251b07;
+  margin-bottom: 10px;
 }
+
 
 .form-common input,
 .form-button {
-  padding: 0.2em;
+  padding: 0.5rem;
   border-radius: 10px;
+  font-family: "Winky Rough", sans-serif;
   border: 1px solid #aaa;
 }
 
@@ -115,7 +166,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding-top: 10%;
+    padding-top: 2%;
   }
 
   .banner {
@@ -156,4 +207,6 @@
     width: auto;
   }
 }
+
+
 

@@ -22,7 +22,7 @@ const Banned = () => {
 
         if (res.ok) {
           const data = await res.json();
-          setBannedUsers(data.users); // asumimos { users: [...] } con campos bannedFrom, bannedTo, reason
+          setBannedUsers(data.users); 
         } else {
           console.error("Error fetching banned users");
         }
@@ -44,7 +44,6 @@ const Banned = () => {
     navigate(`/ban/${userId}`);
   };
 
-  // Filtrar usuarios baneados según búsqueda
   const filteredUsers = bannedUsers.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||

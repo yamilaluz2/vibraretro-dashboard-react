@@ -1,10 +1,10 @@
 import './Button.css';
 import React from 'react';
 
-const Button = ({text, callback}) => {
+const Button = ({text, callback, type = "button"}) => {
   
   return (
-    <button onClick={callback}>
+    <button className="retro-btn" onClick={callback} type={type}>
       {text}
     </button>
   )

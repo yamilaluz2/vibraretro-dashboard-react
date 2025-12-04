@@ -5,69 +5,29 @@
   padding: 20px;
   width: 100vw;
   min-height: 80vh;
-  background: #f8f8f0;
   font-family: 'Arial', sans-serif;
   color: #251b07;
   gap: 20px;
 }
 
 .users-container h2 {
-  font-family: 'Lobster', cursive;
+  font-family: "Winky Rough", sans-serif;
   font-size: 2.5rem;
   text-shadow: 2px 2px 4px rgb(236, 104, 27);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
 .users-container p {
+  font-family: "Winky Rough", sans-serif;
   font-size: 1.4rem;
   color: #a34f07;
   text-align: center;
 }
 
-.custom-table {
-  width: 100%;
-  max-width: 1000px;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px black;
-  overflow: hidden;
-}
-
-.custom-table th,
-.custom-table td {
-  padding: 10px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.custom-table th {
-  background-color: #ffcc66;
-  color: #251b07;
-}
-
-.action-buttons button {
-  margin-right: 10px;
-  padding: 5px 10px;
-  background-color: #ff9933;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #fff;
-}
-
-.action-buttons button:hover {
-  background-color: #e68a00;
-}
-
 @media screen and (min-width: 768px) {
   .users-container h2 {
     font-size: 3rem;
-  }
-
-  .custom-table {
-    font-size: 1.1rem;
   }
 }
 
@@ -75,4 +35,11 @@
   .users-container {
     padding: 40px;
   }
+}
+
+@font-face {
+  font-family: "Winky Rough";
+  src: url('../../assets/fonts/WinkyRough.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

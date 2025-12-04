@@ -1,0 +1,57 @@
+.swal2-popup {
+  background: #f5f5f5; 
+  color: #251b07;     
+  font-family: "Winky Rough", sans-serif;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 3px 3px 5px rgb(231, 135, 25);
+}
+
+.swal2-title {
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1.8rem;
+  color: #251b07;
+  text-shadow: 2px 2px 4px rgb(236, 104, 27);
+}
+
+.swal2-content {
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1rem;
+  color: #251b07;
+  margin-top: 0.5rem;
+}
+
+.swal2-confirm {
+  background-color: #f8a700;
+  color: black;
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px #d18b00;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.swal2-confirm:hover {
+  background-color: #e07b00;
+  transform: scale(1.05);
+  box-shadow: 0 6px #d18b00;
+}
+
+.swal2-cancel {
+  background-color: #aaa;
+  color: black;
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px #888;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.swal2-cancel:hover {
+  background-color: #888;
+  transform: scale(1.05);
+  box-shadow: 0 6px #666;
+}

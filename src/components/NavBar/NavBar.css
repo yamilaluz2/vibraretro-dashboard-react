@@ -1,41 +1,53 @@
 .bg-body-tertiary {
-    height: 100px;
-    text-align: center;
-    font-size: 0.8em;
-    background: repeating-linear-gradient(to right, #EFD9B4, #ffcc66, #d6c1a3, #ffcc66, #EFD9B4);height: 100px; 
-    display: flex;
-    align-items: center;
+  min-height: 90px;
+  background: repeating-linear-gradient(to right,#efd9b4, #ffcc66, #d6c1a3, #ffcc66,#efd9b4);
+  display: flex;
+  align-items: center;
+}
+
+.bg-body-tertiary .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Winky Rough", sans-serif;
+  font-size: 2rem;
+  color: #251b07;
+  text-shadow: 2px 2px 4px rgb(236, 104, 27);
+}
+
+.bg-body-tertiary .logo-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
 }
 
 nav.bg-body-tertiary .nav-link {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-right: 20px;
-    text-decoration: none;
-    font-size: 2rem;
-    color: black;
-}
-
-nav.bg-body-tertiary a {
-    font-size: 3rem;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Winky Rough", sans-serif;
+  margin-right: 20px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #251b07;
 }
 
 nav.bg-body-tertiary .nav-link:hover {
-    color: rgb(230, 122, 50);
+  color: rgb(230, 122, 50);
 }
 
 .me-auto {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-.navbar-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+@media screen and (max-width: 768px) {
+  .bg-body-tertiary {
+    min-height: 80px;
+  }
 
-.logo-img {
-    width: 70px;
-    height: 70px;
-    border-radius: 5px;
+  .bg-body-tertiary .navbar-brand {
+    font-size: 1.6rem;
+  }
+
+  nav.bg-body-tertiary .nav-link {
+    margin-right: 10px;
+    font-size: 1rem;
+  }
 }
