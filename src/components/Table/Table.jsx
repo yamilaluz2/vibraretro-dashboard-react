@@ -22,7 +22,7 @@ const Table = ({ users, onEdit, onBan }) => {
               <td>{user.id}</td>
               <td>{user.name}</td>
               <td>{user.username}</td>
-              <td>{user.email}</td>
+              <td>{user.mail}</td>
               <td>{user.banned ? "Baneado" : "Activo"}</td>
               <td className="action-buttons">
                 <Button text="Editar" callback={() => onEdit(user.id)} />

@@ -14,11 +14,11 @@ const Dashboard = () => {
       }
 
       try {
-        const res = await fetch("https://tu-backend.com/api/usuarios/estadisticas", {
+        const res = await fetch("http://localhost:5029/User/GetcountUser", {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();
-        setStatistics(data);
+        setStatistics(data.count);
       } catch (error) {
         console.error("Error fetching statistics:", error);
       } finally {
@@ -36,7 +36,7 @@ const Dashboard = () => {
       <h2>Estadísticas de Usuarios</h2>
       {statistics ? (
         <ul>
-          <li>Total de usuarios: {statistics.totalUsuarios}</li>
+          <li>Total de usuarios: {statistics}</li>
         </ul>
       ) : (
         <p>No se pudieron cargar las estadísticas</p>

@@ -3,23 +3,23 @@ import { useNavigate } from "react-router-dom";
 import './Login.css';
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
 
   const validateLogin = async () => {
-    if (!username || !password) {
+    if (!mail || !password) {
       alert("Ingrese usuario y contraseña");
       return;
     }
 
     setLoading(true);
 
-    const body = { username, password };
+    const body = { mail, password };
 
     try {
-      const res = await fetch("https://tu-backend.com/api/login", { 
+      const res = await fetch("http://localhost:5029/User/login", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -27,13 +27,13 @@ const Login = () => {
 
       const data = await res.json();
 
-      if (res.ok && data.token && data.role) {
-        localStorage.setItem("token", data.token);   
-        localStorage.setItem("role", data.role);     
+      if (res.ok && data.token) {
+        localStorage.setItem("token", data.token);        
         localStorage.setItem("logged", "true");      
 
         navigate("/dashboard");
       } else {
+        console.log(data.message);
         alert(data.error || "Usuario o contraseña incorrectos");
       }
     } catch (error) {
@@ -55,9 +55,9 @@ const Login = () => {
           <input
             className="form-input"
             type="text"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Correo Electronico"
+            value={mail}
+            onChange={(e) => setMail(e.target.value)}
           />
           <input
             className="form-input"
