@@ -48,6 +48,10 @@ const Users = () => {
     navigate(`/ban/${userId}`);
   };
 
+  const handleUnBan = (userId) => {
+    navigate(`/unBan/${userId}`);
+  };
+
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -62,7 +66,7 @@ const Users = () => {
         <p>Cargando usuarios...</p>
       ) : (
         <>
-          <Table users={filteredUsers} onEdit={handleEdit} onBan={handleBan} />
+          <Table users={filteredUsers} onEdit={handleEdit} onBan={handleBan} unBan={handleUnBan}/>
           <Paginador pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </>
       )}

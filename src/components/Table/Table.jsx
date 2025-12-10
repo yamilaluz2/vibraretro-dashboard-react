@@ -2,7 +2,7 @@ import React from 'react';
 import './Table.css';
 import Button from "../Button/Button";
 
-const Table = ({ users, onEdit, onBan }) => {
+const Table = ({ users, onEdit, onBan, unBan }) => {
   return (
     <div className="table-container">
       <table className='custom-table'>
@@ -26,7 +26,12 @@ const Table = ({ users, onEdit, onBan }) => {
               <td>{user.state ? "Baneado" : "Activo"}</td>
               <td className="action-buttons">
                 <Button text="Editar" callback={() => onEdit(user.id)} />
-                <Button text="Banear" callback={() => onBan(user.id)} />
+                {!user.state && (
+                  <Button text="Banear" callback={() => onBan(user.id)} />
+                )}
+                {user.state && (
+                  <Button text="Desbanear" callback={() => unBan(user.id)} />
+                )}
               </td>
             </tr>
           ))}

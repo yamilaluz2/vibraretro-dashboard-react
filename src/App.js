@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Users from './components/Users/Users';
 import User from './components/User/User';
 import Ban from './components/Ban/Ban';
+import UnBan from './components/UnBan/UnBan';
 import Administrators from './components/Administrators/Administrators';
 import Banned from './components/Banned/Banned';
 import Error from './components/Error/Error';
@@ -26,6 +27,7 @@ function App() {
           <Route exact path='/users' element={<ProtectedRoutes><Users /></ProtectedRoutes>} />
           <Route exact path='/user/:userId' element={<ProtectedRoutes><User /></ProtectedRoutes>} />
           <Route exact path='/ban/:userId' element={<ProtectedRoutes><Ban /></ProtectedRoutes>} />
+          <Route exact path='/unBan/:userId' element={<ProtectedRoutes><UnBan /></ProtectedRoutes>} />
           <Route exact path='/administrators' element={<ProtectedRoutes><Administrators /></ProtectedRoutes>} />
           <Route exact path='/banned' element={<ProtectedRoutes><Banned /></ProtectedRoutes>} />
           <Route path='*' element={<Error />} />
