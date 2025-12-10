@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './User.css';
 import Button from '../Button/Button';
+import Alert from "../Alert/Alert";
 
 const User = () => {
   const { userId } = useParams(); 
@@ -12,28 +13,31 @@ const User = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
- const fetchUser = async () => {
-      const token = localStorage.getItem('token');
-      try {
-        const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        const data = await res.json();
-        if (res.ok) {
-          setUser(data);
-          setRole(data.role); 
-        } else {
-          alert(data.error || "No se pudo obtener el usuario");
+  const fetchUser = async () => {
+    const token = localStorage.getItem('token');
+
+    try {
+      const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        alert("Error al cargar usuario");
-      } finally {
-        setLoading(false);
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setUser(data);
+        setRole(data.role);
+      } else {
+        Alert.error("Error", data.error || "No se pudo obtener el usuario");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      Alert.error("Error", "Error al cargar usuario");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchUser();
@@ -44,6 +48,7 @@ const User = () => {
 
     setSaving(true);
     const token = localStorage.getItem('token');
+
     try {
       const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
         method: 'PUT',
@@ -53,16 +58,20 @@ const User = () => {
         },
         body: JSON.stringify({ role })
       });
+
       const data = await res.json();
+
       if (res.ok) {
-        alert("Usuario actualizado correctamente");
-        navigate('/users'); 
+        await Alert.success("Actualizado", "Usuario actualizado correctamente");
+        navigate('/users');
       } else {
-        alert(data.error || "No se pudo guardar el usuario");
+        Alert.error("Error", data.error || "No se pudo guardar el usuario");
       }
+
     } catch (error) {
       console.error("Error saving user:", error);
-      alert("Ocurrió un error al guardar");
+      Alert.error("Error", "Ocurrió un error al guardar");
+
     } finally {
       setSaving(false);
     }
@@ -79,14 +88,17 @@ const User = () => {
           Nombre:
           <input type="text" value={user.name} disabled />
         </label>
+
         <label>
           Username:
           <input type="text" value={user.username} disabled />
         </label>
+
         <label>
           Email:
           <input type="email" value={user.email} disabled />
         </label>
+
         <label>
           Rol:
           <select value={role} onChange={(e) => setRole(e.target.value)}>
@@ -94,11 +106,16 @@ const User = () => {
             <option value="admin">Administrador</option>
           </select>
         </label>
-        <Button text={saving ? "Guardando..." : "Guardar"} callback={saveUser} />
+
+        <Button 
+          text={saving ? "Guardando..." : "Guardar"} 
+          callback={saveUser} 
+        />
       </div>
     </div>
   );
 };
 
 export default User;
+
 

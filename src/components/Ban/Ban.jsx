@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './Ban.css';
 
 const Ban = () => {
@@ -14,7 +15,11 @@ const Ban = () => {
 
   const handleBan = async () => {
     if (!reason || !startDate || !endDate || !confirm) {
-      alert('Completa todos los campos y confirma el baneo.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos incompletos',
+        text: 'Completa todos los campos y confirma el baneo.'
+      });
       return;
     }
 
@@ -37,14 +42,26 @@ const Ban = () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert(`Usuario ${userId} baneado exitosamente.`);
+        await Swal.fire({
+          icon: 'success',
+          title: 'Usuario baneado',
+          text: `Usuario ${userId} baneado exitosamente.`
+        });
         navigate('/users'); 
       } else {
-        alert(data.error || 'Error al banear al usuario.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: data.error || 'Error al banear al usuario.'
+        });
       }
     } catch (error) {
       console.error('Error al banear:', error);
-      alert('Ocurrió un error, intenta nuevamente.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error inesperado',
+        text: 'Ocurrió un error, intenta nuevamente.'
+      });
     } finally {
       setLoading(false);
     }
@@ -52,7 +69,7 @@ const Ban = () => {
 
   return (
     <div className="ban-container">
-      <h2>Banear Usuario {userId}</h2> 
+      <h2>¿Querés banear al usuario {userId}?</h2> 
       <div className="ban-form">
         <label>
           Motivo
@@ -95,4 +112,5 @@ const Ban = () => {
 };
 
 export default Ban;
+
 

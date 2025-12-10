@@ -12,7 +12,7 @@ const Login = () => {
 
   const validateLogin = async () => {
     if (!mail || !password) {
-      alert("Ingrese usuario y contraseña");
+      Alert.error("Campos incompletos", "Ingrese usuario y contraseña");
       return;
     }
 
@@ -31,16 +31,22 @@ const Login = () => {
 
       if (res.ok && data.token) {
         localStorage.setItem("token", data.token);        
-        localStorage.setItem("logged", "true");      
+        localStorage.setItem("logged", "true");
 
-        await Alert.success("Bienvenido", "Has iniciado sesión correctamente");
+        await Alert.success(
+          "Bienvenido",
+          "Has iniciado sesión correctamente"
+        );
+
         navigate("/dashboard");
       } else {
         Alert.error("Login fallido", data.error || "Usuario o contraseña incorrectos");
       }
+
     } catch (error) {
       console.error("Error al loguear:", error);
       Alert.error("Error de conexión", "Ocurrió un error de conexión, intenta nuevamente");
+
     } finally {
       setLoading(false);
     }
@@ -61,6 +67,7 @@ const Login = () => {
             value={mail}
             onChange={(e) => setMail(e.target.value)}
           />
+
           <input
             className="form-input"
             type="password"
