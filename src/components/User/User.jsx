@@ -12,8 +12,7 @@ const User = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    const fetchUser = async () => {
+ const fetchUser = async () => {
       const token = localStorage.getItem('token');
       try {
         const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
@@ -36,6 +35,7 @@ const User = () => {
       }
     };
 
+  useEffect(() => {
     fetchUser();
   }, [userId]);
 
