@@ -37,7 +37,6 @@ function NavBar() {
             <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
             <Nav.Link as={Link} to="/users">Usuarios</Nav.Link>
             <Nav.Link as={Link} to="/administrators">Administradores</Nav.Link>
-            <Nav.Link as={Link} to="/banned">Baneados</Nav.Link>
             <Nav.Link onClick={handleLogout}>Cerrar sesión</Nav.Link>
           </Nav>
         </Navbar.Collapse>
