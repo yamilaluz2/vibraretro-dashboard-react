@@ -13,6 +13,8 @@ const Administrators = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
+  const filter = "admin";
+
   useEffect(() => {
     const fetchAdmins = async () => {
       const token = localStorage.getItem("token");
@@ -21,14 +23,13 @@ const Administrators = () => {
       setLoading(true);
 
       try {
-        const res = await fetch(`https://tu-backend.com/api/users?page=${pageNumber}`, {
+        const res = await fetch(`http://localhost:5029/User/GetUser?filter=${filter}&pageNumber=${pageNumber}`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
 
         if (res.ok) {
           const data = await res.json();
-          const adminUsers = data.users.filter(u => u.role === "admin");
-          setAdmins(adminUsers);
+          setAdmins(data);
         } else {
           console.error("Error fetching admins");
         }

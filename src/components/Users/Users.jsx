@@ -12,6 +12,8 @@ const Users = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
+  const filter = "user";
+
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem("token");
@@ -20,7 +22,7 @@ const Users = () => {
       setLoading(true);
 
       try {
-        const res = await fetch(`http://localhost:5029/User/GetUser?pageNumber=${pageNumber}`, {
+        const res = await fetch(`http://localhost:5029/User/GetUser?filter=${filter}&pageNumber=${pageNumber}`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
 

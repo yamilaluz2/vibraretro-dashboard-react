@@ -6,8 +6,11 @@ import './Banned.css';
 const Banned = () => {
   const [bannedUsers, setBannedUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
+  const filter = "banned";
 
   useEffect(() => {
     const fetchBannedUsers = async () => {
@@ -16,13 +19,13 @@ const Banned = () => {
 
       setLoading(true);
       try {
-        const res = await fetch("https://tu-backend.com/api/users/banned", {
+        const res = await fetch(`http://localhost:5029/User/GetUser?filter=${filter}&pageNumber=${pageNumber}`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
 
         if (res.ok) {
           const data = await res.json();
-          setBannedUsers(data.users); 
+          setBannedUsers(data); 
         } else {
           console.error("Error fetching banned users");
         }
