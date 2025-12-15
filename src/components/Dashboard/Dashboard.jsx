@@ -17,8 +17,14 @@ const Dashboard = () => {
         const res = await fetch("http://localhost:5029/User/GetcountUser", {
           headers: { "Authorization": `Bearer ${token}` }
         });
+
         const data = await res.json();
-        setStatistics(data.count);
+
+        setStatistics({
+          totalUsers: data.count,
+          activeUsers: data.activeCount,
+        });
+
       } catch (error) {
         console.error("Error fetching statistics:", error);
       } finally {
@@ -34,9 +40,11 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <h2>Estadísticas de Usuarios</h2>
+
       {statistics ? (
         <ul>
-          <li>Total de usuarios: {statistics}</li>
+          <li>Total de usuarios: {statistics.totalUsers}</li>
+          <li>Usuarios activos: {statistics.activeUsers}</li>
         </ul>
       ) : (
         <p>No se pudieron cargar las estadísticas</p>
@@ -46,3 +54,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
