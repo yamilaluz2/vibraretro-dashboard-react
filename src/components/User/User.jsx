@@ -5,7 +5,7 @@ import './User.css';
 
 const UserRole = () => {
   const { userId } = useParams();
-  const [role, setRole] = useState('user'); // estado para el select
+  const [role, setRole] = useState('user'); 
   const [confirm, setConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +43,7 @@ const UserRole = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ idUser: userId, role }),
+        body: JSON.stringify({ userId: userId, role }),
       });
 
       const data = await res.json();
@@ -59,7 +59,7 @@ const UserRole = () => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: data.error || 'No se pudo actualizar el usuario.',
+          text: data.message || 'No se pudo actualizar el usuario.',
         });
       }
     } catch (error) {
@@ -82,8 +82,8 @@ const UserRole = () => {
         <label>
           Seleccioná el rol:
           <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="user">Usuario</option>
-            <option value="admin">Administrador</option>
+            <option value="Usuario">Usuario</option>
+            <option value="Administrador">Administrador</option>
           </select>
         </label>
 
