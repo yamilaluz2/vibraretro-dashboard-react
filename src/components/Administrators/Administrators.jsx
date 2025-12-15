@@ -47,10 +47,6 @@ const Administrators = () => {
     navigate(`/user/${userId}`);
   };
 
-  const handleBan = (userId) => {
-    navigate(`/ban/${userId}`);
-  };
-
   const filteredAdmins = admins.filter(admin =>
     admin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     admin.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -65,7 +61,7 @@ const Administrators = () => {
         <p>Cargando administradores...</p>
       ) : (
         <>
-          <Table users={filteredAdmins} onEdit={handleEdit} onBan={handleBan} />
+          <Table users={filteredAdmins} onEdit={handleEdit} showBanActions={false} />
           <Paginador pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </>
       )}
