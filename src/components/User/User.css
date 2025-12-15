@@ -1,24 +1,24 @@
-.user-container {
+.user-role-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   width: 100vw;
   min-height: 80vh;
-  background: #f8f8f0;
+  background: #d6e3e6;
   font-family: 'Arial', sans-serif;
   color: #251b07;
   gap: 20px;
 }
 
-.user-container h2 {
+.user-role-container h2 {
   font-family: 'Lobster', cursive;
   font-size: 2.5rem;
   text-shadow: 2px 2px 4px rgb(236, 104, 27);
   margin-bottom: 10px;
 }
 
-.user-form {
+.user-role-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -30,7 +30,7 @@
   max-width: 500px;
 }
 
-.user-form label {
+.user-role-form label {
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -38,8 +38,9 @@
   color: #251b07;
 }
 
-.user-form input,
-.user-form select {
+.user-role-form select,
+.user-role-form input[type="text"],
+.user-role-form input[type="email"] {
   padding: 0.8em;
   margin-top: 5px;
   border-radius: 10px;
@@ -48,11 +49,14 @@
   width: 100%;
 }
 
-.user-form input:disabled {
-  background-color: #e0e0e0;
+.confirm-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
 }
 
-.user-form button {
+.user-role-form button {
   margin-top: 10px;
   padding: 0.8em 1em;
   border-radius: 8px;
@@ -64,17 +68,23 @@
   box-shadow: 2px 2px 5px black;
 }
 
-.user-form button:hover {
+.user-role-form button:hover {
   background-color: #a34f07;
   color: white;
 }
 
+.user-role-form button:disabled {
+  background-color: #e0e0e0;
+  color: #888;
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 768px) {
-  .user-form {
+  .user-role-form {
     width: 95%;
   }
 
-  .user-container h2 {
+  .user-role-container h2 {
     font-size: 2rem;
   }
 }

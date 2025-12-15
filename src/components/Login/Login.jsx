@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
+  const isDashboard= true;
 
   const validateLogin = async () => {
     if (!mail || !password) {
@@ -18,7 +19,7 @@ const Login = () => {
 
     setLoading(true);
 
-    const body = { mail, password };
+    const body = { mail, password, isDashboard };
 
     try {
       const res = await fetch("http://localhost:5029/User/login", { 
@@ -40,7 +41,7 @@ const Login = () => {
 
         navigate("/dashboard");
       } else {
-        Alert.error("Login fallido", data.error || "Usuario o contraseña incorrectos");
+        Alert.error("Login fallido", data.message || "Usuario o contraseña incorrectos");
       }
 
     } catch (error) {

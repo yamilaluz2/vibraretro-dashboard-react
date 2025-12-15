@@ -1,121 +1,107 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './User.css';
-import Button from '../Button/Button';
-import Alert from "../Alert/Alert";
 
-const User = () => {
-  const { userId } = useParams(); 
+const UserRole = () => {
+  const { userId } = useParams();
+  const [role, setRole] = useState('user'); // estado para el select
+  const [confirm, setConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState('user'); 
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const handleSave = async () => {
+    if (!confirm) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Falta confirmar',
+        text: 'Debes marcar la opción para confirmar el cambio de rol.',
+      });
+      return;
+    }
 
-  const fetchUser = async () => {
-    const token = localStorage.getItem('token');
+    const swalConfirm = await Swal.fire({
+      title: `¿Cambiar el rol del usuario ${userId}?`,
+      text: `Se asignará el rol: ${role}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cambiar rol',
+      cancelButtonText: 'Cancelar',
+    });
+
+    if (!swalConfirm.isConfirmed) return;
+
+    setLoading(true);
 
     try {
-      const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
+      const token = localStorage.getItem('token');
+
+      const res = await fetch('http://localhost:5029/User/UpdateRol', {
+        method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ idUser: userId, role }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setUser(data);
-        setRole(data.role);
+        await Swal.fire({
+          icon: 'success',
+          title: '¡Actualizado!',
+          text: `El usuario ${userId} ahora tiene el rol ${role}.`,
+        });
+        navigate('/users');
       } else {
-        Alert.error("Error", data.error || "No se pudo obtener el usuario");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: data.error || 'No se pudo actualizar el usuario.',
+        });
       }
     } catch (error) {
-      console.error("Error fetching user:", error);
-      Alert.error("Error", "Error al cargar usuario");
+      console.error('Error al actualizar rol:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error inesperado',
+        text: 'Ocurrió un error, intenta nuevamente.',
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, [userId]);
-
-  const saveUser = async () => {
-    if (!user) return;
-
-    setSaving(true);
-    const token = localStorage.getItem('token');
-
-    try {
-      const res = await fetch(`https://tu-backend.com/api/users/${userId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ role })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        await Alert.success("Actualizado", "Usuario actualizado correctamente");
-        navigate('/users');
-      } else {
-        Alert.error("Error", data.error || "No se pudo guardar el usuario");
-      }
-
-    } catch (error) {
-      console.error("Error saving user:", error);
-      Alert.error("Error", "Ocurrió un error al guardar");
-
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  if (loading) return <p>Cargando usuario...</p>;
-  if (!user) return <p>Usuario no encontrado</p>;
-
   return (
-    <div className="user-container">
-      <h2>Editar Usuario</h2>
-      <div className="user-form">
-        <label>
-          Nombre:
-          <input type="text" value={user.name} disabled />
-        </label>
+    <div className="user-role-container">
+      <h2>Editar Rol del Usuario {userId}</h2>
 
+      <div className="user-role-form">
         <label>
-          Username:
-          <input type="text" value={user.username} disabled />
-        </label>
-
-        <label>
-          Email:
-          <input type="email" value={user.email} disabled />
-        </label>
-
-        <label>
-          Rol:
+          Seleccioná el rol:
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="user">Usuario</option>
             <option value="admin">Administrador</option>
           </select>
         </label>
 
-        <Button 
-          text={saving ? "Guardando..." : "Guardar"} 
-          callback={saveUser} 
-        />
+        <label className="confirm-checkbox">
+          <input
+            type="checkbox"
+            checked={confirm}
+            onChange={() => setConfirm(!confirm)}
+          />
+          Confirmo el cambio de rol de este usuario
+        </label>
+
+        <button onClick={handleSave} disabled={loading}>
+          {loading ? 'Procesando...' : 'Guardar'}
+        </button>
       </div>
     </div>
   );
 };
 
-export default User;
-
-
+export default UserRole;
