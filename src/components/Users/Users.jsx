@@ -62,7 +62,7 @@ const Users = () => {
 
   return (
     <div className="users-container">
-      <h2>Usuarios Registrados</h2>
+      <h2>Usuarios</h2>
       <Search placeholder="Buscar usuarios..." onSearch={setSearchQuery} />
       {loading ? (
         <p>Cargando usuarios...</p>
